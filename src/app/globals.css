@@ -213,10 +213,6 @@ header {
 /* CSS-only Touch Slider */
 .image-slider {
   scroll-snap-type: x mandatory;
-  touch-action: pan-x;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
 }
 .image-slider::-webkit-scrollbar {
   display: none;
