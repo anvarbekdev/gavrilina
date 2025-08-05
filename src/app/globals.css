@@ -213,8 +213,10 @@ header {
 /* CSS-only Touch Slider */
 .image-slider {
   scroll-snap-type: x mandatory;
+  touch-action: pan-x;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
 }
 .image-slider::-webkit-scrollbar {
   display: none;
@@ -222,9 +224,7 @@ header {
 
 .image-slide {
   scroll-snap-align: start;
-  flex-shrink: 0;
 }
-
 
 .nav-line[data-hover-index="0"]:hover
   ~ .image-stack
@@ -296,39 +296,4 @@ header {
   ~ .image-stack
   .product-image:not([data-img-index="10"]) {
   opacity: 0 !important;
-}
-
-/* Touch-friendly scroll behavior */
-@media (hover: none) and (pointer: coarse) {
-  .image-container .nav-line {
-    display: none;
-  }
-
-  .image-stack {
-    display: none;
-  }
-
-  .image-slider {
-    display: flex !important;
-  }
-}
-
-/* Desktop hover behavior */
-@media (hover: hover) and (pointer: fine) {
-  .image-slider {
-    display: none;
-  }
-}
-
-/* Line clamp utility */
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-/* Smooth scrolling for touch devices */
-.image-slider {
-  scroll-behavior: smooth;
 }

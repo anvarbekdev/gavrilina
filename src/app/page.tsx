@@ -376,7 +376,7 @@ export default function Home() {
 
                 {/* Desktop Image Stack (hover-based) */}
                 <div className={clsx(
-                  "image-stack relative w-full ",
+                  "image-stack hidden md:block relative w-full ",
                   index % 4 === 2 || index % 4 === 3
                     ? "h-[300px] sm:h-[400px] md:h-[400px]"
                     : "h-[230px] sm:h-[300px] md:h-[400px]"
@@ -396,31 +396,33 @@ export default function Home() {
                 </div>
 
                 {/* Mobile Touch Slider (scroll-based) */}
-                <div className="image-slider hidden overflow-x-auto w-full h-full">
-                  {product.images.map((image, idx) => (
-                    <div
-                      key={`mobile-img-${idx}`}
-                      className={clsx(
-                        "image-slide relative w-full ",
-                        index % 4 === 2 || index % 4 === 3
-                          ? "h-[300px] sm:h-[400px] md:h-[400px]"
-                          : "h-[230px] sm:h-[300px] md:h-[400px]"
-                      )}
-                    >
-                      <Image
-                        src={image.url}
-                        alt={image.name}
-                        width={400}
-                        height={400}
+                <div className=" md:hidden overflow-x-auto w-full h-full image-slider">
+                  <div className="flex">
+                    {product.images.map((image, idx) => (
+                      <div
+                        key={`mobile-img-${idx}`}
                         className={clsx(
-                          "w-full h-full ",
+                          "flex-shrink-0 w-full image-slide relative",
                           index % 4 === 2 || index % 4 === 3
-                            ? "object-contain"
-                            : "object-cover sm:object-contain"
+                            ? "h-[300px] sm:h-[400px]"
+                            : "h-[230px] sm:h-[300px]"
                         )}
-                      />
-                    </div>
-                  ))}
+                      >
+                        <Image
+                          src={image.url}
+                          alt={image.name}
+                          width={400}
+                          height={400}
+                          className={clsx(
+                            "w-full h-full",
+                            index % 4 === 2 || index % 4 === 3
+                              ? "object-contain"
+                              : "object-cover sm:object-contain"
+                          )}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Size Selector */}
