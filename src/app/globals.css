@@ -21,6 +21,7 @@
   --max-width-wqhd: 2560px;
 
   --color-gray: hsla(30, 18%, 93%, 1);
+  --color-gray-bg: hsla(0, 0%, 92%, 1);
   --color-gray-text: hsla(0, 0%, 42%, 0.8);
   --color-hover-gray: hsl(0, 0%, 66%);
   --color-line: hsla(0, 0%, 86%, 1);
@@ -292,4 +293,67 @@ header {
   ~ .image-stack
   .product-image:not([data-img-index="10"]) {
   opacity: 0 !important;
+}
+
+
+/* Embla */
+
+.embla-fakro {
+  --slide-size: 100%;
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-height: 0;
+}
+
+.embla_horizontal {
+  max-width: 30rem;
+  --slide-spacing: 0rem;
+  --slide-size: 40%;
+}
+
+.embla__slide_horizontal {
+  flex: 0 0 var(--slide-size);
+  margin-top: 4rem;
+  min-height: 300px;
+  padding-left: var(--slide-spacing);
+}
+
+@media (min-width: 500px) {
+  
+  .embla_horizontal {
+    max-width: 40rem;
+    --slide-spacing: 0rem;
+    --slide-size: 30%;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  .embla_horizontal {
+    max-width: 50rem;
+    --slide-spacing: 0rem;
+    --slide-size: 30%;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+
+  .embla_horizontal {
+    max-width: 40rem;
+    --slide-spacing: 0rem;
+    --slide-size: 30%;
+  }
+
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
