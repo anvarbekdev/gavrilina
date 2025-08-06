@@ -18,8 +18,7 @@
   }
 
   --breakpoint-wqhd: 2560px;
-  --max-width-wqhd: 2560px;
-
+  
   --color-gray: hsla(30, 18%, 93%, 1);
   --color-gray-bg: hsla(0, 0%, 92%, 1);
   --color-gray-text: hsla(0, 0%, 42%, 0.8);
@@ -297,15 +296,6 @@ header {
 
 
 /* Embla */
-
-.embla-fakro {
-  --slide-size: 100%;
-}
-
-.embla__slide {
-  flex: 0 0 var(--slide-size);
-  min-height: 0;
-}
 
 .embla_horizontal {
   max-width: 30rem;
