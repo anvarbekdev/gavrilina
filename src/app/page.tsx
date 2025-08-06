@@ -715,7 +715,7 @@ export default function Home() {
 
       {/* About Brand */}
       <div
-        className="relative overflow-hidden flex justify-center items-center h-[180vh]   wqhd:max-h-[110vh] px-4 md:px-6 my-10 md:my-25"
+        className="relative overflow-hidden flex justify-center items-center h-[220vh] md:h-[180vh]   wqhd:max-h-[110vh] px-4 md:px-6 my-10 md:my-25"
         id="about-brand"
       >
         <div className="container mx-auto  max-w-5xl ">
@@ -759,7 +759,7 @@ export default function Home() {
         <Image
           src="/images/ui/about-2.webp"
           alt="right-line"
-          className="absolute transform -translate-x-[40%] md:-translate-x-1/1 bottom-40 md:bottom-0 max-w-[200px] lg:max-w-[200px] 2xl:max-w-[250px] "
+          className="absolute transform -translate-x-[40%] md:-translate-x-1/1 bottom-30 md:bottom-0 max-w-[200px] lg:max-w-[200px] 2xl:max-w-[250px] "
           width={300}
           height={300}
         />
