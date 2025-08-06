@@ -715,10 +715,10 @@ export default function Home() {
 
       {/* About Brand */}
       <div
-        className="relative overflow-hidden flex justify-center items-center h-[220vh] md:h-[180vh]   wqhd:max-h-[110vh] px-4 md:px-6 my-10 md:my-25"
+        className="relative overflow-hidden flex justify-center items-center h-[240vh] md:h-[180vh]   wqhd:max-h-[110vh] px-4 md:px-6 my-10 md:my-25"
         id="about-brand"
       >
-        <div className="container mx-auto  max-w-5xl ">
+        <div className="container z-40 mx-auto max-w-5xl">
           <div>
             <h3 className="uppercase text-gray-text">О бренде</h3>
             <h3 className="my-6 leading-[40px]">
@@ -735,8 +735,8 @@ export default function Home() {
           src="/images/ui/left-line.webp"
           alt="left-line"
           className="absolute max-w-[1200px] md:max-w-[800px] lg:max-w-[750px] xl:max-w-[750px] 2xl:max-w-[900px] transform -translate-x-1/2 "
-          width={1200}
-          height={1200}
+          width={900}
+          height={900}
         />
 
         <Image
