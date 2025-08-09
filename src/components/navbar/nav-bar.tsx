@@ -7,149 +7,18 @@ import clsx from "clsx"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { LikeIcon, MenuIcon, SearchIcon, TextIcon } from "@/assets/svg/all"
+import { categories } from "@/mock/data"
 
 const headers = [
   {
     name: "Одежда",
-    href: "/",
-    dropdown: [
-      {
-        category: "ДЛЯ ДВИЖЕНИЯ И СПОРТА",
-        href: "/",
-        total: "12",
-        isActive: true,
-        image: "/images/product/product-1.jpg",
-        subcategory: [
-          {
-            name: "Йога и танцы",
-            href: "/",
-            items: [
-              { name: "Костюмы с разрезом от бедра", href: "/" },
-              { name: "Свободные брюки", href: "/" },
-              { name: "Топы", href: "/" },
-            ]
-          },
-          {
-            href: "/",
-            name: "активный отдых",
-            items: [
-              { name: "Оверсайз-худи", href: "/" },
-              { name: "Костюмы с разрезом от бедра", href: "/" },
-              { name: "мужские комплекты", href: "/" },
-              { name: "Кимоно для занятий", href: "/" },
-            ]
-          }
-        ],
-      },
-      {
-        category: "ДЛЯ ДОМА И УЮТА",
-        total: "30",
-        href: "/",
-        image: "/images/product/product-2.jpg",
-        subcategory: [
-          {
-            href: "/",
-            name: "халаты и кимоно",
-            items: [
-              { name: "Костюмы с разрезом от бедра", href: "/" },
-              { name: "укороченные варианты", href: "/" },
-            ]
-          },
-          {
-            href: "/",
-            name: "уютные кардиганы",
-            items: [
-              { name: "джерси с шелковой подкладкой", href: "/" },
-            ]
-          }
-        ],
-      },
-      {
-        category: "ДЛЯ ГОРОДА",
-        total: "24",
-        href: "/",
-        image: "/images/product/product-1.jpg",
-        subcategory: [
-          {
-            href: "/",
-            name: "example",
-            items: [
-              { name: "Костюмы с разрезом от бедра", href: "/" },
-              { name: "укороченные варианты", href: "/" },
-            ]
-          },
-          {
-            href: "/",
-            name: "уютные кардиганы",
-            items: [
-              { name: "джерси с шелковой подкладкой", href: "/" },
-            ]
-          }
-        ],
-      },
-      {
-        category: "ЛЕТНИЕ КОЛЛЕКЦИИ",
-        total: "56",
-        href: "/",
-        subcategory: [
-          {
-            href: "/",
-            name: "халаты и КОЛЛЕКЦИИ",
-            items: [
-              { name: "Костюмы с разрезом от бедра", href: "/" },
-              { name: "укороченные варианты", href: "/" },
-            ]
-          },
-          {
-            href: "/",
-            name: "уютные кардиганы",
-            items: [
-              { name: "джерси с шелковой подкладкой", href: "/" },
-            ]
-          }
-        ],
-      }
-    ]
+    slug: "clothing",
   },
   {
     name: "Аксессуары",
-    href: "/",
-    dropdown: [
-      {
-        category: "аксессуары и детали",
-        total: "12",
-        href: "/",
-        isActive: true,
-        image: "/images/product/product-3.jpg",
-        subcategory: [
-          {
-            href: "/",
-            name: "Украшения",
-            items: [
-              { name: "Серьги", href: "/" },
-              { name: "Браслеты", href: "/" },
-            ]
-          },
-          {
-            href: "/",
-            name: "Для дома",
-            items: [
-              { name: "Коврики для йоги", href: "/" },
-              { name: "Шёлковые подушки с росписью", href: "/" },
-            ]
-          },
-          {
-            href: "/",
-            name: "Функциональное",
-            items: [
-              { name: "Дизайнерские бутылки для воды", href: "/" },
-            ]
-          }
-        ],
-      }
-    ]
+    slug: "accessory",
   },
-  { name: "покупателям", href: "/" },
+  { name: "покупателям", slug: "/" },
 ]
 
 const secondHeaders = [
@@ -167,6 +36,9 @@ export default function NavBar() {
   const pathname = usePathname();
   const lastScrollY = useRef(0);
   const headerRef = useRef(null) as any;
+
+  const clothingCtgs = categories.filter((ctg) => ctg.type === "clothing");
+  const accessoryCtgs = categories.filter((ctg) => ctg.type === "accessory");
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -255,57 +127,102 @@ export default function NavBar() {
                     key={header.name}
                     className="group">
                     <Link
-                      href={header.href}
+                      href={
+                        header.slug === "clothing"
+                          || header.slug === "accessory"
+                          ? "#"
+                          : header.slug}
                       className={clsx(
                         `text-sm px-3 min-h-20 hover:text-hover-gray flex items-center gap-1 transition-colors duration-200`,
                       )}
                     >
                       {header.name.toUpperCase()}
-                      {header.dropdown && (
+                      {(header.slug === "clothing" || header.slug === "accessory") && (
                         <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
                       )}
                     </Link>
 
-                    {header.dropdown && (
+                    {(header.slug === "clothing" || header.slug === "accessory") && (
                       <div className="absolute overflow-auto min-h-screen max-h-screen flex left-0 p-8 border-t bg-white shadow-2xl z-50 min-w-[960px] opacity-0 invisible transition-all duration-300 ease-out group-hover:opacity-100 group-hover:visible ">
                         <div className="flex flex-col justify-between border-r pr-10">
                           <div>
-                            {header.dropdown.map((category, catIndex) => (
-                              <div
-                                key={catIndex}
-                                onClick={() => setHoveredIndex(catIndex)}
-                                className="flex my-2">
-                                <h4 className={clsx(
-                                  "uppercase cursor-pointer hover:text-black/70 flex items-center gap-2",
-                                  (hoveredIndex === catIndex
-                                    || hoveredIndex === null
-                                    && category.isActive) ? "text-black" : "text-hover-gray"
-                                )}>
-                                  {category.category}
-                                  {category.total && (
-                                    <div className="bg-gray text-black flex h-6 w-6 text-xs rounded-full items-center justify-center">
-                                      <span className="p-1">{category.total}</span>
-                                    </div>
-                                  )}
-                                </h4>
-                              </div>
-                            ))}
+                            {header.slug === "clothing"
+                              ? clothingCtgs
+                                .map((category, catIndex) => (
+                                  <div
+                                    key={catIndex}
+                                    onClick={() => setHoveredIndex(catIndex)}
+                                    className="flex my-2">
+                                    <h4 className={clsx(
+                                      "uppercase cursor-pointer hover:text-black/70 flex items-center gap-2",
+                                      (
+                                        hoveredIndex === catIndex
+                                        || (hoveredIndex === null && catIndex === 0)
+                                      ) ? "text-black" : "text-hover-gray"
+                                    )}>
+                                      {category.name}
+                                      {category.total && (
+                                        <div className="bg-gray text-black flex h-6 w-6 text-xs rounded-full items-center justify-center">
+                                          <span className="p-1">{category.total}</span>
+                                        </div>
+                                      )}
+                                    </h4>
+                                  </div>
+                                ))
+                              : header.slug === "accessory" ? accessoryCtgs
+                                .map((category, catIndex) => (
+                                  <div
+                                    key={catIndex}
+                                    onClick={() => setHoveredIndex(catIndex)}
+                                    className="flex my-2">
+                                    <h4 className={clsx(
+                                      "uppercase cursor-pointer hover:text-black/70 flex items-center gap-2",
+                                      (
+                                        hoveredIndex === catIndex
+                                        || (hoveredIndex === null && catIndex === 0)
+                                      ) ? "text-black" : "text-hover-gray"
+                                    )}>
+                                      {category.name}
+                                      {category.total && (
+                                        <div className="bg-gray text-black flex h-6 w-6 text-xs rounded-full items-center justify-center">
+                                          <span className="p-1">{category.total}</span>
+                                        </div>
+                                      )}
+                                    </h4>
+                                  </div>
+                                ))
+                                : null
+                            }
                           </div>
-                          {/* image */}
+
+                          {/* image or video */}
                           {(() => {
                             const activeCategory =
                               hoveredIndex !== null
-                                ? header.dropdown[hoveredIndex]
-                                : header.dropdown.find((cat) => cat.isActive);
+                                ? header.slug === "accessory" ? accessoryCtgs[hoveredIndex] : categories[hoveredIndex]
+                                : header.slug === "accessory" ? accessoryCtgs[0] : clothingCtgs[0];
 
-                            return (activeCategory?.image &&
+                            return (activeCategory?.image && activeCategory?.image.type === "image" ?
                               <Image
-                                src={activeCategory?.image}
+                                src={activeCategory.image.url}
                                 alt="image"
                                 width={400}
                                 className="pb-10"
                                 height={400}
                               />
+                              :
+                              activeCategory?.image && activeCategory?.image.type === "video" ?
+                                <video
+                                  src={activeCategory.image.url}
+                                  autoPlay
+                                  muted
+                                  height={400}
+                                  width={400}
+                                  loop
+                                  className="pb-10"
+                                />
+                                :
+                                null
                             )
                           })()}
                         </div>
@@ -313,23 +230,30 @@ export default function NavBar() {
                           {(() => {
                             const activeCategory =
                               hoveredIndex !== null
-                                ? header.dropdown[hoveredIndex]
-                                : header.dropdown.find((cat) => cat.isActive);
+                                ? header.slug === "accessory" ? accessoryCtgs[hoveredIndex] : categories[hoveredIndex]
+                                : header.slug === "accessory" ? accessoryCtgs[0] : clothingCtgs[0];
 
                             return (
-                              activeCategory?.subcategory.map((item, itemIndex) => (
+                              activeCategory?.children?.map((item, itemIndex) => (
                                 <React.Fragment key={itemIndex}>
                                   <h5
                                     className=" text-black hover:text-black/60 uppercase mt-4"
                                   >
                                     {item.name}
                                   </h5>
-                                  {item.items && (
+                                  {item.children && (
                                     <ul className="flex flex-col gap-2 mt-2 ml-2">
-                                      {item.items.map((subItem, subItemIndex) => (
+                                      {item.children.map((subItem, subItemIndex) => (
                                         <li key={subItemIndex}>
                                           <Link
-                                            href={subItem.href}
+                                           onClick={() => {
+                                            const groupEl = document.activeElement?.closest('.group');
+                                            if (groupEl) {
+                                              groupEl.classList.remove('group');
+                                              setTimeout(() => groupEl.classList.add('group'), 1000);
+                                            }
+                                          }}
+                                            href={`/catalog/?categorySlug=${subItem.slug}`}
                                             className=" text-gray-text hover:text-black/80 uppercase"
                                           >
                                             {subItem.name}
@@ -418,7 +342,7 @@ export default function NavBar() {
                         "flex items-center justify-between py-2 cursor-pointer",
                         mobileDropdown === index && "text-black"
                       )}
-                      onClick={() => header.dropdown && toggleMobileDropdown(index)}
+                      onClick={() => (header.slug === "accessory" || header.slug === "clothing") && toggleMobileDropdown(index)}
                     >
                       <div
                         className=" uppercase  custom-cursor text-gray-text hover:text-black/80"
@@ -429,8 +353,8 @@ export default function NavBar() {
                     </div>
 
                     {/* Mobile Dropdown */}
-                    {header.dropdown && (
-                      header.dropdown.map((category, catIndex) => (
+                    {(header.slug === "accessory" || header.slug === "clothing") && (
+                      header.slug === "accessory" ? accessoryCtgs.map((category, catIndex) => (
                         <div
                           key={catIndex}
                           onClick={() => {
@@ -451,14 +375,14 @@ export default function NavBar() {
                             "hover:text-black/90 cursor-pointer uppercase my-2 flex items-center gap-2 justify-start",
                             mobileSubDropdown === catIndex ? "text-black" : "text-gray-text"
                           )}>
-                            {category.category}
+                            {category.name}
                             {category.total && (
                               <div className="bg-gray text-black flex h-6 w-6 text-xs rounded-full items-center justify-center">
                                 <span className="p-1">{category.total}</span>
                               </div>
                             )}
                           </h3>
-                          {category.subcategory.map((item, itemIndex) => (
+                          {category?.children?.map((item, itemIndex) => (
                             <div
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -490,8 +414,8 @@ export default function NavBar() {
                                 )} />
 
                               </h4>
-                              {item.items && (
-                                item.items.map((subItem, subItemIndex) => (
+                              {item.children && (
+                                item.children.map((subItem, subItemIndex) => (
                                   <h5
                                     className={clsx(
                                       "overflow-hidden leading-8 ml-2 transition-all duration-300 ease-out",
@@ -504,8 +428,8 @@ export default function NavBar() {
                                     }}
                                     key={subItemIndex}>
                                     <Link
-                                      href={subItem.href}
-                                      // onClick={() => setIsMenuOpen(false)}
+                                      href={`/catalog/?categorySlug=${subItem.slug}`}
+                                      onClick={() => setIsMenuOpen(false)}
                                       className=" text-base text-gray-text hover:text-black/80 uppercase"
                                     >
                                       {subItem.name}
@@ -517,14 +441,106 @@ export default function NavBar() {
                           ))}
 
                           {category?.image && mobileSubDropdown === catIndex && <Image
-                            src={category?.image}
+                            src={category?.image.url}
                             alt="image"
                             width={400}
                             height={400}
                           />}
                         </div>
-                      ))
-                    )}
+                      )) : header.slug === 'clothing' && clothingCtgs.map((category, catIndex) => (
+                        <div
+                          key={catIndex}
+                          onClick={() => {
+                            toggleMobileSubDropdown(catIndex)
+                            toggleMobileSubMiniDropdown(null)
+                          }}
+                          className={clsx(
+                            "overflow-hidden pr-2 cursor-pointer transition-all duration-300 ease-out",
+                            mobileDropdown === index
+                              ? " opacity-100 translate-y-0"
+                              : "max-h-0 opacity-0 -translate-y-2"
+                          )}
+                          style={{
+                            transitionDelay: mobileDropdown === index ? `${catIndex * 100 + 200}ms` : '0ms'
+                          }}
+                        >
+                          <h3 className={clsx(
+                            "hover:text-black/90 cursor-pointer uppercase my-2 flex items-center gap-2 justify-start",
+                            mobileSubDropdown === catIndex ? "text-black" : "text-gray-text"
+                          )}>
+                            {category.name}
+                            {category.total && (
+                              <div className="bg-gray text-black flex h-6 w-6 text-xs rounded-full items-center justify-center">
+                                <span className="p-1">{category.total}</span>
+                              </div>
+                            )}
+                          </h3>
+                          {category?.children?.map((item, itemIndex) => (
+                            <div
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleMobileSubMiniDropdown(itemIndex)
+                              }}
+                              className={clsx(
+                                "overflow-hidden transition-all duration-300 ease-out",
+                                mobileSubDropdown === catIndex
+                                  ? " opacity-100 translate-y-0"
+                                  : "max-h-0 opacity-0 -translate-y-4"
+                              )}
+                              style={{
+                                transitionDelay: mobileSubDropdown === catIndex ? `${itemIndex * 100 + 200}ms` : '0ms'
+                              }}
+                              key={itemIndex}>
+                              <h4
+                                className={"flex  my-1  items-center justify-between uppercase"}
+                              >
+                                <span
+                                  className=" text-black hover:text-black/60"
+                                >
+                                  {item.name}
+                                </span>
+                                <ChevronDown className={clsx(
+                                  "w-5 h-5 transition-all duration-300 ease-out",
+                                  mobileSubMiniDropdown === itemIndex
+                                    ? "rotate-180"
+                                    : "rotate-0 "
+                                )} />
+
+                              </h4>
+                              {item.children && (
+                                item.children.map((subItem, subItemIndex) => (
+                                  <h5
+                                    className={clsx(
+                                      "overflow-hidden leading-8 ml-2 transition-all duration-300 ease-out",
+                                      mobileSubMiniDropdown === itemIndex
+                                        ? " opacity-100 translate-y-0"
+                                        : "max-h-0 opacity-0 -translate-y-4"
+                                    )}
+                                    style={{
+                                      transitionDelay: mobileSubMiniDropdown === itemIndex ? `${subItemIndex * 100 + 200}ms` : '0ms'
+                                    }}
+                                    key={subItemIndex}>
+                                    <Link
+                                      href={`/catalog/?categorySlug=${subItem.slug}`}
+                                      onClick={() => setIsMenuOpen(false)}
+                                      className=" text-base text-gray-text hover:text-black/80 uppercase"
+                                    >
+                                      {subItem.name}
+                                    </Link>
+                                  </h5>
+                                ))
+                              )}
+                            </div>
+                          ))}
+
+                          {category?.image && mobileSubDropdown === catIndex && <Image
+                            src={category?.image.url}
+                            alt="image"
+                            width={400}
+                            height={400}
+                          />}
+                        </div>
+                      )))}
                   </div>
                 ))}
 

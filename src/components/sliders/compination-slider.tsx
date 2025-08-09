@@ -7,16 +7,9 @@ import Image from 'next/image'
 import clsx from 'clsx'
 import { useMediaQuery } from 'react-responsive'
 import { ChevronRight } from 'lucide-react'
+import { FileType } from '@/types/type'
 
-const data = [
-  "/images/product/slider.png",
-  "/images/product/slider.png",
-  "/images/product/slider.png",
-  "/images/product/slider.png",
-  "/images/product/slider.png",
-]
-
-export function CombinationSlider() {
+export function CombinationSlider({ total, images, title, name }: { total: number, title: string, name: string, images?: FileType[] }) {
 
   const [selectedIndex, setSelectedIndex] = useState(0)
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -34,7 +27,8 @@ export function CombinationSlider() {
   };
 
   const isInSequence = (itemIndex: number, baseIndex: number, offset: number): boolean => {
-    return getRelativeIndexRTL(baseIndex, itemIndex, data.length) === offset;
+    if (!images) return false
+    return getRelativeIndexRTL(baseIndex, itemIndex, images?.length) === offset;
   };
 
   useEffect(() => {
@@ -57,15 +51,16 @@ export function CombinationSlider() {
     <div
       className="embla_horizontal relative lg:px-10 bg-gray-bg min-w-full xl:min-w-[50%] 2xl:min-w-[60%]"
     >
-      <h3 className=" uppercase gap-2 flex items-center absolute top-6 left-4 cursor-pointer hover:text-black/70 ">
-        Идеальные <br className='sm:hidden' /> сочетания
-        <span className="bg-white inline-flex justify-center text-black h-6 w-6 text-xs rounded-full">
-          <span className="p-1">16</span>
+      <h3 className="uppercase max-w-[220px] sm:max-w-max absolute top-6 left-4 cursor-pointer hover:text-black/70 xl:flex  items-start">
+        {name}
+        <span
+          className="bg-white text-black inline-block align-middle h-8 w-8 text-sm rounded-full text-center leading-8 ml-2"
+        >
+          {total}
         </span>
       </h3>
-      <h2 className="uppercase xl:text-[56px] absolute bottom-6 left-4 cursor-pointer hover:text-black/70">
-        Коллекция <br className='hidden md:block' />
-        «Янь»
+      <h2 className="uppercase md:max-w-[220px] max-w-max xl:text-[56px] absolute bottom-6 left-4 cursor-pointer hover:text-black/70">
+        {title}
       </h2>
       <button
         onClick={() => emblaApi?.scrollTo(emblaApi?.selectedScrollSnap() - 1)}
@@ -75,7 +70,7 @@ export function CombinationSlider() {
       </button>
       <div ref={emblaRef} className=' overflow-hidden'>
         <div className={`flex mr-10`}>
-          {data.map((img, index) => {
+          {images && images.map((img, index) => {
             const isActive = index === selectedIndex;
             const isActiveAfter = isInSequence(index, selectedIndex, 1);
             const isActiveAfterNext = isInSequence(index, selectedIndex, 2);
@@ -104,8 +99,8 @@ export function CombinationSlider() {
                   )}
                 >
                   <Image
-                    src={img}
-                    alt={`slide-${index}`}
+                    src={img.url}
+                    alt={`slide-${img.name}-${index}`}
                     width={500}
                     height={500}
                     className=" h-auto object-cover"

@@ -9,7 +9,10 @@ export default function LinkTo(
     !href && isButton ?
       <button
         onClick={onClick}
-        className={`flex cursor-pointer gap-4 mt-6 z-40 transition-all duration-300 hover:opacity-70 items-center ${className}`}
+        className={clsx(
+          `flex cursor-pointer gap-4 z-40 transition-all duration-300 hover:opacity-70 items-center`,
+          className
+        )}
       >
         <div className={clsx(
           "flex items-center justify-center bg-gray text-black rounded-full",
@@ -25,14 +28,17 @@ export default function LinkTo(
       </button>
       : href && <Link
         href={href}
-        className={`flex gap-4 mt-6 z-40 transition-all duration-300 hover:opacity-70 items-center ${className}`}
+        className={clsx(
+          `flex gap-4 z-40 transition-all duration-300 hover:opacity-70 items-center `,
+          className
+        )}
       >
-        <div className="h-16 flex items-center justify-center w-16 p-5 bg-gray text-black rounded-full" >
+        <div className="h-16 min-w-16 flex items-center justify-center  p-5 bg-gray text-black rounded-full" >
           <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L7 7L1 13" stroke="#000" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <span className="text-black text-lg border-b pb-1 border-line">
+        <span className="underline decoration-[1px] decoration-line underline-offset-[10px]">
           {label}
         </span>
       </Link>

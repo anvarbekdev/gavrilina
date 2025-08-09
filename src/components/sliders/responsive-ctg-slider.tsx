@@ -52,21 +52,29 @@ const ResponsiveCtgSlider = ({ categories }: { categories: CategoryType[] }) => 
               key={index}>
               <div>
                 <h3 className="uppercase line-clamp-2 mt-2">
-                  {category.category}
+                  {category.name}
                 </h3>
                 <h6 className="text-base my-3 line-clamp-2">
                   {category.summary}
                 </h6>
               </div>
-              <Image
-                src={category.image}
-                alt={category.href}
+              {category.image && category.image.type === "image" ? <Image
+                src={category.image?.url}
+                alt={category.image?.name || "category"}
                 width={400}
                 height={400}
                 className="max-h-[400px] object-contain"
               />
-              <LinkTo href={category.href} />
+                : category.image && category.image.type === "video" &&
+                <video
+                  src={category.image?.url}
+                  autoPlay loop
+                  muted
+                  className="w-full h-full object-cover" />
+              }
+              <LinkTo href={`/catalog/?categorySlug=${category.slug}`} className='mt-6' />
             </div>
+
           ))}
         </div>
       </div>

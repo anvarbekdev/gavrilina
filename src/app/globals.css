@@ -18,11 +18,13 @@
   }
 
   --breakpoint-wqhd: 2560px;
-  
+
   --color-gray: hsla(30, 18%, 93%, 1);
   --color-gray-bg: hsla(0, 0%, 92%, 1);
-  --color-gray-text: hsla(0, 0%, 42%, 0.8);
+  --color-gray-text: hsla(0, 0%, 39%, 1);
   --color-hover-gray: hsl(0, 0%, 66%);
+  --color-graybold: hsl(0, 0%, 39%);
+  --color-black-thin: hsla(0, 0%, 3%, 1);
   --color-line: hsla(0, 0%, 86%, 1);
 
   --color-background: var(--background);
@@ -153,7 +155,7 @@
     @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
   }
   h3 {
-    @apply text-2xl sm:text-[26px] md:text-[28px] md:leading-[28px] xl:text-[32px] xl:leading-[32px];
+    @apply text-2xl sm:text-[26px] sm:leading-[30px] md:text-[28px] md:leading-[36px] xl:text-[32px] xl:leading-[32px];
   }
   h4 {
     @apply text-xl md:text-xl lg:text-2xl;
@@ -195,6 +197,19 @@ header {
   position: fixed;
   background: #fff;
   transition: all 0.7s cubic-bezier(0.165, 0.85, 0.45, 1) 0s;
+}
+
+.filter-sidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.filter-sidebar.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .burger-menu {
@@ -294,7 +309,6 @@ header {
   opacity: 0 !important;
 }
 
-
 /* Embla */
 
 .embla_horizontal {
@@ -311,33 +325,27 @@ header {
 }
 
 @media (min-width: 500px) {
-  
   .embla_horizontal {
     max-width: 40rem;
     --slide-spacing: 0rem;
     --slide-size: 30%;
   }
-
 }
 
 @media (min-width: 768px) {
-
   .embla_horizontal {
     max-width: 50rem;
     --slide-spacing: 0rem;
     --slide-size: 30%;
   }
-  
 }
 
 @media (min-width: 1024px) {
-
   .embla_horizontal {
     max-width: 40rem;
     --slide-spacing: 0rem;
     --slide-size: 30%;
   }
-
 }
 
 .scrollbar-none::-webkit-scrollbar {

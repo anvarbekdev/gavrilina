@@ -1,0 +1,66 @@
+.embla_task {
+  max-width: 48rem;
+  --slide-height: 19rem;
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+}
+.embla_task_card {
+  --slide-height: 19rem;
+  --slide-spacing: 0rem;
+}
+.embla_task__viewport {
+  overflow: hidden;
+}
+.embla_task__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla_task__slide_card {
+  transform: translate3d(0, 0, 0);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+}
+
+.embla_task__slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+}
+
+.embla_task-thumbs__container {
+  margin-top: calc(var(--thumbs-slide-spacing) * -1);
+  height: 100%;
+}
+
+.embla_task-thumbs__slide {
+  flex: 0 0 auto;
+  height: 5rem;
+  min-height: 0;
+  padding-top: var(--thumbs-slide-spacing);
+}
+
+@media (min-width: 576px) {
+  .embla_task-thumbs__slide {
+    flex: 0 0 15%;
+  }
+}
+
+.embla__progress {
+  border-radius: 1.8rem;
+  position: relative;
+  height: 0.3rem;
+  justify-self: flex-end;
+  align-self: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.embla__progress__bar {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}
