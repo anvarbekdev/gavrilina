@@ -154,11 +154,10 @@ export default function NavBar() {
                                     onClick={() => setHoveredIndex(catIndex)}
                                     className="flex my-2">
                                     <h4 className={clsx(
-                                      "uppercase cursor-pointer hover:text-black/70 flex items-center gap-2",
-                                      (
-                                        hoveredIndex === catIndex
-                                        || (hoveredIndex === null && catIndex === 0)
-                                      ) ? "text-black" : "text-hover-gray"
+                                      "relative uppercase cursor-pointer hover:text-black/70 flex items-center gap-2 after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:bg-black after:w-0 after:transition-all after:duration-300 after:-translate-x-1/2",
+                                      (hoveredIndex === catIndex || (hoveredIndex === null && catIndex === 0))
+                                        ? "after:w-full text-black"
+                                        : "text-hover-gray"
                                     )}>
                                       {category.name}
                                       {category.total && (
@@ -176,11 +175,10 @@ export default function NavBar() {
                                     onClick={() => setHoveredIndex(catIndex)}
                                     className="flex my-2">
                                     <h4 className={clsx(
-                                      "uppercase cursor-pointer hover:text-black/70 flex items-center gap-2",
-                                      (
-                                        hoveredIndex === catIndex
-                                        || (hoveredIndex === null && catIndex === 0)
-                                      ) ? "text-black" : "text-hover-gray"
+                                      "relative uppercase cursor-pointer hover:text-black/70 flex items-center gap-2 after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:bg-black after:w-0 after:transition-all after:duration-300 after:-translate-x-1/2",
+                                      (hoveredIndex === catIndex || (hoveredIndex === null && catIndex === 0))
+                                        ? "after:w-full text-black"
+                                        : "text-hover-gray"
                                     )}>
                                       {category.name}
                                       {category.total && (
@@ -246,13 +244,13 @@ export default function NavBar() {
                                       {item.children.map((subItem, subItemIndex) => (
                                         <li key={subItemIndex}>
                                           <Link
-                                           onClick={() => {
-                                            const groupEl = document.activeElement?.closest('.group');
-                                            if (groupEl) {
-                                              groupEl.classList.remove('group');
-                                              setTimeout(() => groupEl.classList.add('group'), 1000);
-                                            }
-                                          }}
+                                            onClick={() => {
+                                              const groupEl = document.activeElement?.closest('.group');
+                                              if (groupEl) {
+                                                groupEl.classList.remove('group');
+                                                setTimeout(() => groupEl.classList.add('group'), 1000);
+                                              }
+                                            }}
                                             href={`/catalog/?categorySlug=${subItem.slug}`}
                                             className=" text-gray-text hover:text-black/80 uppercase"
                                           >
@@ -339,16 +337,22 @@ export default function NavBar() {
                   <div key={header.name}>
                     <div
                       className={clsx(
-                        "flex items-center justify-between py-2 cursor-pointer",
+                        "flex items-center relative justify-between py-2 cursor-pointer",
                         mobileDropdown === index && "text-black"
                       )}
                       onClick={() => (header.slug === "accessory" || header.slug === "clothing") && toggleMobileDropdown(index)}
                     >
                       <div
-                        className=" uppercase  custom-cursor text-gray-text hover:text-black/80"
+                        className={clsx(
+                          "relative uppercase custom-cursor text-gray-text hover:text-black/80 " +
+                          "after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[1.6px] " +
+                          "after:bg-black after:w-0 after:transition-all after:duration-300 after:-translate-x-1/2",
+                          mobileDropdown === index && "text-black after:w-full"
+                        )}
                       >
                         {header.name}
                       </div>
+
 
                     </div>
 
@@ -440,12 +444,25 @@ export default function NavBar() {
                             </div>
                           ))}
 
-                          {category?.image && mobileSubDropdown === catIndex && <Image
+                          {/* image or video */}
+                          {category?.image && mobileSubDropdown === catIndex && category.image.type === "image" ? <Image
                             src={category?.image.url}
                             alt="image"
                             width={400}
                             height={400}
-                          />}
+                          />
+                            : mobileSubDropdown === catIndex && category.image && category.image.type === "video" &&
+                            <video
+                              src={category.image.url}
+                              autoPlay
+                              muted
+                              height={400}
+                              width={400}
+                              loop
+                              className="pb-10"
+                            />
+                          }
+
                         </div>
                       )) : header.slug === 'clothing' && clothingCtgs.map((category, catIndex) => (
                         <div
@@ -455,9 +472,9 @@ export default function NavBar() {
                             toggleMobileSubMiniDropdown(null)
                           }}
                           className={clsx(
-                            "overflow-hidden pr-2 cursor-pointer transition-all duration-300 ease-out",
+                            "overflow-hidden pr-2 cursor-pointer transition-all duration-300 ease-out ",
                             mobileDropdown === index
-                              ? " opacity-100 translate-y-0"
+                              ? "opacity-100 translate-y-0"
                               : "max-h-0 opacity-0 -translate-y-2"
                           )}
                           style={{
@@ -533,12 +550,25 @@ export default function NavBar() {
                             </div>
                           ))}
 
-                          {category?.image && mobileSubDropdown === catIndex && <Image
+                          {/* image or video */}
+                          {mobileSubDropdown === catIndex && (category?.image && category.image.type === "image") ? <Image
                             src={category?.image.url}
                             alt="image"
                             width={400}
                             height={400}
-                          />}
+                          />
+                            : mobileSubDropdown === catIndex && category.image && category.image.type === "video" ?
+                              <video
+                                src={category.image.url}
+                                autoPlay
+                                muted
+                                height={400}
+                                width={400}
+                                loop
+                                className="pb-10"
+                              />
+                              : null
+                          }
                         </div>
                       )))}
                   </div>
