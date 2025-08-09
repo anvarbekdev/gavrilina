@@ -5,7 +5,7 @@ import ProductsCard from "./cards/products-card"
 import { ProductQueryParams } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "@/api/requests";
-import {  PRODUCTS_QUERY_KEY, SORT_BY } from "@/types/constants";
+import { PRODUCTS_QUERY_KEY, SORT_BY } from "@/types/constants";
 import { useMediaQuery } from "react-responsive";
 import { FilterSidebar } from "./sidebars/filter-sidebar";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -168,7 +168,10 @@ export const CatalogClient = () => {
           {/* clear */}
           {Object.keys(filters).length !== 0 && <span
             onClick={() => {
-              setFilters({});
+              setFilters({
+                limit: 12,
+                page: 1,
+              });
               replace("/catalog");
             }}
             className="text-black min-w-fit hidden lg:block md:ml-4 underline cursor-pointer hover:opacity-70">

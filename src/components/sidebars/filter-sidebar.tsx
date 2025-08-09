@@ -99,7 +99,12 @@ export const FilterSidebar = ({ isOpen, onClose, filters, setFilters }: FilterSi
   };
 
   const resetAllFilters = () => {
-    setFilters({});
+    setFilters({
+      limit: 12,
+      page: 1
+    });
+
+    onClose();
   };
 
   const toggleMobileDropdown = (index: any) => {

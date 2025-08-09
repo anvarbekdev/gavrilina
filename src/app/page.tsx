@@ -100,7 +100,7 @@ export default function Home() {
           <Image
             src="/images/ui/ellipse_center.png"
             alt="hero_ellipse_center"
-            className="absolute max-w-[1000px] md:max-w-[800px] lg:max-w-[750px] xl:max-w-[750px] 2xl:max-w-[900px] bottom-0 left-1/2 transform -translate-x-1/2 "
+            className="absolute max-w-[800px] lg:max-w-[750px] xl:max-w-[750px] 2xl:max-w-[900px] bottom-0 left-1/2 transform -translate-x-1/2 "
             width={1000}
             height={1000}
           />
