@@ -10,7 +10,7 @@ export default function LinkTo(
       <button
         onClick={onClick}
         className={clsx(
-          `flex cursor-pointer gap-4 z-40 transition-all duration-300 hover:opacity-70 items-center`,
+          `flex  cursor-pointer gap-4 z-40 transition-all duration-300 hover:opacity-70 items-center`,
           className
         )}
       >

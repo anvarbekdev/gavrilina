@@ -5,9 +5,6 @@ import Link from "next/link";
 
 export default function ProductsCard({ products, isSame = false }: { products: ProductType[], isSame?: boolean }) {
   const getSpanClass = (index: number) => {
-    if (isSame) {
-      return "col-span-1";
-    }
 
     const position2Col = index % 4;
 
@@ -17,6 +14,10 @@ export default function ProductsCard({ products, isSame = false }: { products: P
       class2Col = "col-span-1";
     } else {
       class2Col = "col-span-2";
+    }
+
+    if (isSame) {
+      return class2Col;
     }
 
     const position4Col = index % 6;
@@ -111,7 +112,8 @@ export default function ProductsCard({ products, isSame = false }: { products: P
             <div className=" md:hidden overflow-x-auto w-full h-full image-slider">
               <div className="flex">
                 {product.images.map((image, idx) => (
-                  <div
+                  <Link
+                  href={`/catalog/${product.slug}`}
                     key={`mobile-img-${idx}`}
                     className={clsx(
                       "flex-shrink-0 w-full image-slide relative",
@@ -132,7 +134,7 @@ export default function ProductsCard({ products, isSame = false }: { products: P
                           : "min-[400px]:object-contain object-cover"
                       )}
                     />
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

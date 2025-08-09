@@ -144,7 +144,7 @@ export default function NewCollection({ images, collections, newProducts }: { im
               </div>
 
               {/* Product Info */}
-              <div className="my-6 flex flex-col justify-between cursor-pointer">
+              <div className="my- flex gap-6 mt-2 flex-col justify-between cursor-pointer">
                 <div>
                   <h6 className="lg:mb-2 hover:text-gray-text line-clamp-2">
                     {product.name}
@@ -160,7 +160,7 @@ export default function NewCollection({ images, collections, newProducts }: { im
                     )}
                   </div>
                 </div>
-                <LinkTo iconClassName="h-10 w-10 xl:h-16 xl:w-16 p-4" isButton={true} label="Добавить в корзину" />
+                <LinkTo iconClassName="h-10  w-10 xl:h-16 xl:w-16 p-4" isButton={true} label="Добавить в корзину" />
               </div>
             </div>
           ))}

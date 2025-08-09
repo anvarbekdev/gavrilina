@@ -595,7 +595,7 @@ export const FilterSidebar = ({ isOpen, onClose, filters, setFilters }: FilterSi
         <button
           onClick={resetAllFilters}
           disabled={Object.keys(filters).length === 0}
-          className={`block disabled:opacity-30 w-full underline cursor-pointer hover:opacity-70 my-10 text-base md:text-xl text-center`}>
+          className={`block disabled:opacity-30 w-full underline cursor-pointer hover:opacity-70 my-6 md:my-10 text-base md:text-xl text-center`}>
           Сбросить все фильтры
         </button>
 
