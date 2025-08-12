@@ -318,7 +318,7 @@ export default function Home() {
           <LinkTo href={'#'} className="flex-row-reverse hidden md:flex" />
         </div>
 
-        {newProducts.filter((product) => product.collectionSlug === "izyskannaya_kollekciya_sovmestno_s_cozy_home").length > 0 && <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+        {newProducts.filter((product) => product.collectionSlug === "izyskannaya_kollekciya_sovmestno_s_cozy_home").length > 0 && <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
           <ProductsCard isSame products={newProducts.filter((product) => product.collectionSlug === "izyskannaya_kollekciya_sovmestno_s_cozy_home")} />
         </div>}
       </div>
