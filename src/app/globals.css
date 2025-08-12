@@ -355,3 +355,123 @@ header {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+#hero {
+  position: relative;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: white;
+  z-index: 10;
+  animation: overlayFade 3s ease-in-out forwards;
+}
+
+@keyframes overlayFade {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  66.666% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeInImg {
+  0% {
+    filter: invert(1);
+  }
+  66.666% {
+    filter: invert(1);
+  }
+  100% {
+    filter: invert(0);
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLink {
+  0% {
+    display: none;
+  }
+  66.666% {
+    display: none;
+  }
+  100% {
+    display: flex;
+  }
+}
+
+@keyframes fadeInSvg {
+  0% {
+    display: block;
+  }
+  66.666% {
+    display: block;
+  }
+  100% {
+    display: none;
+  }
+}
+
+#hero h5 {
+  opacity: 0;
+  animation: fadeInText 1.2s ease forwards;
+  animation-delay: 1.2s;
+  position: relative;
+  z-index: 0;
+}
+
+#hero a {
+  animation: fadeInLink 3s ease forwards;
+  animation-delay: 0s;
+  position: relative;
+  z-index: 0;
+}
+
+#hero .hero_svg {
+  animation: fadeInSvg 2s ease forwards;
+  animation-delay: 0s;
+  position: relative;
+  z-index: 15;
+}
+
+.fade-in-img {
+  filter: invert(1);
+  z-index: 15;
+  animation-delay: 0s;
+  animation: fadeInImg 3s ease forwards;
+}
+
+.breath-lines {
+  animation: 
+    fadeInImg 3s ease forwards 0s,
+    breath 3s ease-in-out 0s infinite; 
+  animation-delay: 0s, 1s;
+}
+
+@keyframes breath {
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}

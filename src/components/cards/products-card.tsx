@@ -38,6 +38,7 @@ export default function ProductsCard({ products, isSame = false }: { products: P
 
   return products
     .map((product, index) => {
+      const displayCountImg = Math.min(product.images.length, 4);
       return (
         <div
           key={index}
@@ -67,24 +68,26 @@ export default function ProductsCard({ products, isSame = false }: { products: P
 
             {/* Desktop Navigation Lines (hover-based) */}
             {product.images.length > 1 &&
-              product.images.map((_, idx) => (
-                <div
-                  key={`nav-${idx}`}
-                  data-hover-index={idx}
-                  className="nav-line hidden md:block group/navline absolute bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100  transition-opacity duration-300 z-20 h-full  cursor-pointer"
-                  style={{
-                    width: `${270 / product.images.length - 8}px`,
-                    marginLeft: `${((idx - (product.images.length - 1) / 2) * (270 / product.images.length))}px`
-                  }}
-                >
+              product.images
+                .slice(0, displayCountImg)
+                .map((_, idx) => (
                   <div
+                    key={`nav-${idx}`}
+                    data-hover-index={idx}
+                    className="nav-line hidden md:block group/navline absolute bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100  transition-opacity duration-300 z-20 h-full  cursor-pointer"
                     style={{
-                      width: `${270 / product.images.length - 8}px`,
+                      width: `${270 / displayCountImg - 8}px`,
+                      marginLeft: `${((idx - (displayCountImg - 1) / 2) * (270 / displayCountImg))}px`
                     }}
-                    className="nav-line rounded-full absolute group-hover/navline:bg-[#898989] bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 h-0.5  bg-[#DCDCDC] cursor-pointer"
-                  />
-                </div>
-              ))
+                  >
+                    <div
+                      style={{
+                        width: `${270 / displayCountImg - 8}px`,
+                      }}
+                      className="nav-line rounded-full absolute group-hover/navline:bg-[#898989] bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 h-0.5  bg-[#DCDCDC] cursor-pointer"
+                    />
+                  </div>
+                ))
             }
 
             {/* Desktop Image Stack (hover-based) */}
@@ -94,48 +97,52 @@ export default function ProductsCard({ products, isSame = false }: { products: P
                 ? "h-[300px] sm:h-[400px] md:h-[400px]"
                 : "h-[230px] sm:h-[300px] md:h-[400px]"
             )}>
-              {product.images.map((image, idx) => (
-                <Image
-                  data-img-index={idx}
-                  key={`desktop-img-${idx}`}
-                  src={image.url}
-                  alt={image.name}
-                  width={600}
-                  height={600}
-                  className={`product-image absolute inset-0 w-full h-full object-contain transition-all duration-500  ${idx === 0 ? "opacity-100" : "opacity-0"
-                    }`}
-                />
-              ))}
+              {product.images
+                .slice(0, displayCountImg)
+                .map((image, idx) => (
+                  <Image
+                    data-img-index={idx}
+                    key={`desktop-img-${idx}`}
+                    src={image.url}
+                    alt={image.name}
+                    width={600}
+                    height={600}
+                    className={`product-image absolute inset-0 w-full h-full object-contain transition-all duration-500  ${idx === 0 ? "opacity-100" : "opacity-0"
+                      }`}
+                  />
+                ))}
             </div>
 
             {/* Mobile Touch Slider (scroll-based) */}
             <div className=" md:hidden overflow-x-auto w-full h-full image-slider">
               <div className="flex">
-                {product.images.map((image, idx) => (
-                  <Link
-                  href={`/catalog/${product.slug}`}
-                    key={`mobile-img-${idx}`}
-                    className={clsx(
-                      "flex-shrink-0 w-full image-slide relative",
-                      index % 4 === 2 || index % 4 === 3
-                        ? "h-[300px] sm:h-[400px]"
-                        : "h-[230px] sm:h-[300px]"
-                    )}
-                  >
-                    <Image
-                      src={image.url}
-                      alt={image.name}
-                      width={400}
-                      height={400}
+                {product.images
+                  .slice(0, displayCountImg)
+                  .map((image, idx) => (
+                    <Link
+                      href={`/catalog/${product.slug}`}
+                      key={`mobile-img-${idx}`}
                       className={clsx(
-                        "w-full h-full object-contain",
+                        "flex-shrink-0 w-full image-slide relative",
                         index % 4 === 2 || index % 4 === 3
-                          ? "object-contain"
-                          : "min-[400px]:object-contain object-cover"
+                          ? "h-[300px] sm:h-[400px]"
+                          : "h-[230px] sm:h-[300px]"
                       )}
-                    />
-                  </Link>
-                ))}
+                    >
+                      <Image
+                        src={image.url}
+                        alt={image.name}
+                        width={400}
+                        height={400}
+                        className={clsx(
+                          "w-full h-full object-contain",
+                          index % 4 === 2 || index % 4 === 3
+                            ? "object-contain"
+                            : "min-[400px]:object-contain object-cover"
+                        )}
+                      />
+                    </Link>
+                  ))}
               </div>
             </div>
 

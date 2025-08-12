@@ -1,3 +1,4 @@
+import { TextIcon } from "@/assets/svg/all";
 import ProductsCard from "@/components/cards/products-card";
 import NewCollection from "@/components/new-collection";
 import ResponsiveCtgSlider from "@/components/sliders/responsive-ctg-slider";
@@ -85,22 +86,26 @@ export default function Home() {
         className="overflow-hidden relative wqhd:container  mx-auto"
       >
         <div className="container flex flex-col items-center justify-between min-h-[calc(100vh-80px)] wqhd:min-h-[1000px] mx-auto px-4 md:px-6">
+          {/* text */}
           <h5 className="text-center font-thin text-white pt-16">
             Одежда для тех, кто ценит качество <br />
             и индивидуальность
           </h5>
 
+          {/* logo */}
           <Image
             src="/images/ui/hero_logo.png"
             alt="hero_logo"
+            className="fade-in-img"
             width={120}
             height={120}
           />
 
+          {/* lines */}
           <Image
             src="/images/ui/ellipse_center.png"
             alt="hero_ellipse_center"
-            className="absolute max-w-[800px] lg:max-w-[750px] xl:max-w-[750px] 2xl:max-w-[900px] bottom-0 left-1/2 transform -translate-x-1/2 "
+            className="absolute fade-in-img breath-lines max-w-[800px] lg:max-w-[750px] xl:max-w-[750px] 2xl:max-w-[900px] bottom-0 left-1/2 transform -translate-x-1/2 "
             width={1000}
             height={1000}
           />
@@ -108,21 +113,25 @@ export default function Home() {
           <Image
             src="/images/ui/ellipse_left.png"
             alt="hero_ellipse_center"
-            className="absolute w-[100px] lg:w-[250px] xl:w-[350px] 2xl:w-[400px] wqhd:w-[1400px] bottom-0 right-0"
-            width={400}
-            height={400}
-          />
-          <Image
-            src="/images/ui/ellipse_right.png"
-            alt="hero_ellipse_right"
-            className="absolute w-[100px] lg:w-[250px] xl:w-[350px] 2xl:w-[400px] wqhd:w-[1400px] bottom-0 left-0"
+            className="absolute fade-in-img breath-lines w-[100px] lg:w-[250px] xl:w-[350px] 2xl:w-[400px] wqhd:w-[1400px] bottom-0 right-0"
             width={400}
             height={400}
           />
 
+          <Image
+            src="/images/ui/ellipse_right.png"
+            alt="hero_ellipse_right"
+            className="absolute fade-in-img breath-lines w-[100px] lg:w-[250px] xl:w-[350px] 2xl:w-[400px] wqhd:w-[1400px] bottom-0 left-0"
+            width={400}
+            height={400}
+          />
+
+          <TextIcon className=" hero_svg mb-16" />
+
+          {/* btn */}
           <Link
             href="/catalog"
-            className="flex z-40 flex-col transition-all duration-300 hover:opacity-70 items-center border-b mb-16 pb-2 border-hover-gray"
+            className=" flex z-40 flex-col transition-all duration-300 hover:opacity-70 items-center border-b mb-16 pb-2 border-hover-gray"
           >
             <div className="h-16 flex items-center justify-center w-16 p-5 bg-white text-black rounded-full" >
               <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +190,7 @@ export default function Home() {
 
       </div>
 
-      {/* new collection */}
+      {/* New collection */}
       <NewCollection images={images} collections={collections} newProducts={newProducts} />
 
       {/* Style */}
@@ -291,7 +300,7 @@ export default function Home() {
 
       </div>
 
-      {/* home collection */}
+      {/* Home collection */}
       <div
         className="container mx-auto px-4 md:px-6 mt-10 md:mt-25"
         id='home_collection'
@@ -314,7 +323,7 @@ export default function Home() {
         </div>}
       </div>
 
-      {/* blog */}
+      {/* Blog */}
       <div
         className="container mx-auto px-4 md:px-6 mt-10 md:mt-25"
         id='blog'
